@@ -7,17 +7,20 @@ RUN sed -ri -e 's/^mirrorlist/#mirrorlist/g' -e 's/#baseurl=http:\/\/mirror\.cen
     curl -ko /tmp/glibc-2.3.4-2.57.0.1.el4.1.src.rpm https://oss.oracle.com/el4/SRPMS-updates/glibc-2.3.4-2.57.0.1.el4.1.src.rpm && \
     curl -ko /tmp/openssl-0.9.7a-43.18.0.2.el4.src.rpm https://oss.oracle.com/el4/SRPMS-updates/openssl-0.9.7a-43.18.0.2.el4.src.rpm && \
     curl -ko /tmp/tzdata-2016b-1.0.1.el4.src.rpm https://oss.oracle.com/el4/SRPMS-updates/tzdata-2016b-1.0.1.el4.src.rpm && \
-    yum install -y openssh rsyslog gcc rpm-build bison texinfo libtermcap-devel gd-devel libpng-devel zlib-devel libselinux-devel audit-libs-devel libcap-devel krb5-devel && \
+    yum install -y gcc rpm-build bison texinfo libtermcap-devel gd-devel libpng-devel zlib-devel libselinux-devel audit-libs-devel libcap-devel krb5-devel && \
     rpmbuild --rebuild /tmp/bash-3.0-27.0.3.el4.src.rpm && \
     rpmbuild --rebuild /tmp/glibc-2.3.4-2.57.0.1.el4.1.src.rpm && \
     rpmbuild --rebuild /tmp/openssl-0.9.7a-43.18.0.2.el4.src.rpm && \
     rpmbuild --rebuild /tmp/tzdata-2016b-1.0.1.el4.src.rpm && \
+    yum remove -y glibc.i686 && \
     rpm -Uvh /usr/src/redhat/RPMS/x86_64/bash-3.0-27.0.3.x86_64.rpm && \
-    rpm -Uvh /usr/src/redhat/RPMS/x86_64/glibc-2.3.4-2.57.0.1.x86_64.rpm && \
-    rpm -Uvh /usr/src/redhat/RPMS/x86_64/openssl-0.9.7a-43.18.0.2.x86_64.rpm && \
-    rpm -Uvh /usr/src/redhat/RPMS/x86_64/tzdata-2016b-1.0.1.x86_64.rpm && \
+    rpm -Uvh /usr/src/redhat/RPMS/x86_64/glibc*
+    rpm -Uvh /usr/src/redhat/RPMS/x86_64/openssl* && \
+    rpm -Uvh /usr/src/redhat/RPMS/x86_64/nscd-2.3.4-2.57.0.1.el4.1.x86_64.rpm && \
+    rpm -Uvh /usr/src/redhat/RPMS/x86_64/nptl-devel-2.3.4-2.57.0.1.el4.1.x86_64.rpm && \
+    rpm -Uvh /usr/src/redhat/RPMS/noarch/tzdata-2016b-1.0.1.el4.noarch.rpm && \
     yum remove -y gcc rpm-build bison texinfo libtermcap-devel gd-devel libpng-devel zlib-devel libselinux-devel audit-libs-devel libcap-devel krb5-devel && \
-    rm -f /tmp/bash-3.0-27.0.3.el4.src.rpm /tmp/glibc-2.3.4-2.57.0.1.el4.1.src.rpm /tmp/openssl-0.9.7a-43.18.0.2.el4.src.rpm /tmp/tzdata-2016b-1.0.1.el4.src.rpm && \
+    rm -f /tmp/* /usr/src/redhat/RPMS/x86_64/* /usr/src/redhat/RPMS/noarch/* && \
     yum clean all
 
 COPY build-files/start.sh /start.sh
