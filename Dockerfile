@@ -14,7 +14,7 @@ RUN sed -ri -e 's/^mirrorlist/#mirrorlist/g' -e 's/#baseurl=http:\/\/mirror\.cen
     rpmbuild --rebuild /tmp/tzdata-2016b-1.0.1.el4.src.rpm && \
     yum remove -y glibc.i686 && \
     rpm -Uvh /usr/src/redhat/RPMS/x86_64/bash-3.0-27.0.3.x86_64.rpm && \
-    rpm -Uvh /usr/src/redhat/RPMS/x86_64/glibc*
+    rpm -Uvh /usr/src/redhat/RPMS/x86_64/glibc* && \
     rpm -Uvh /usr/src/redhat/RPMS/x86_64/openssl* && \
     rpm -Uvh /usr/src/redhat/RPMS/x86_64/nscd-2.3.4-2.57.0.1.el4.1.x86_64.rpm && \
     rpm -Uvh /usr/src/redhat/RPMS/x86_64/nptl-devel-2.3.4-2.57.0.1.el4.1.x86_64.rpm && \
